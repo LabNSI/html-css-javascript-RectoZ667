@@ -1,7 +1,8 @@
 function init () {
+	
   // La fonction résultat() est exécutée lors de la soumission du formulaire
   // Indiquer le nom du formilaire et l'évenement correspondant à sa soumission
-  document.getElementById("formulary")._evenement_soumission = resultat;
+  document.getElementById("terminale").onsubmit = resultat;
 
   //Récupération des variables et de leurs valeurs dans l'URL :
   // ex : //formulaire.html?prenom=Albert&nom=Dupond&classe=1G2&LITT_ANGLAIS=LITT.+ANGLAIS&NUMERIQUE_SC_INFORM=NUMERIQUE+SC.INFORM
@@ -13,26 +14,26 @@ function init () {
 
   // Compléter le test
   // si sReq n'est pas une chaine vide
-  if(sReq === 0)
+  if(sReq != "")
   {
       const good = "NUMERIQUE_SC_INFORM";
       // La fonction split découpe une chaine de caractères (string) et retourne un tableau (array)
       // Quel caractère sépare les ensemble variable=valeur ?
       // Utiliser ce caractère pour découper la chaine sReq
-      var aReq = sReq.split("=");
+      var aReq = sReq.split("&");
       var mess = "";
       // Boucle sur les variables
       var aVar = [];
       for (var i=0;i<aReq.length;i++) {
         // Quel caractère sépare une variable de sa valeur ?
         // Utiliser ce caractère pour découper la chaine aReq[i]
-        aVar[i] = aReq[i].split("");
+        aVar[i] = aReq[i].split("=");
         // Observer dans la console
-        console.log("aVar["+i+"][0] = "+aVar[i][0]+"   "+"aVar["+i+"][1] = "+aVar[i][1]);
+        // console.log("aVar["+i+"][0] = "+aVar[i][0]+"   "+"aVar["+i+"][1] = "+aVar[i][1]);
       }
       //Construire la chaine suivante en utilisant les valeurs récupérées
       // mess = valeur_du prenom + " " + valeur_du_nom + " " + valeur_de_classe + " : "
-      mess = valeur_du_prenom+ " " + valeur_du_nom + " de " + valeur_de_classe + " : ";
+      mess = aVar[0][1]+ " " + aVar[1][1]+ " de " + aVar[2][1]+ " : ";
 
       //Si au moins une des spécialités est = "NUMERIQUE_SC_INFORM"
       // Ajouter à mess "Bon choix !"
@@ -46,7 +47,7 @@ function init () {
       }
 
       // Ajouter le code HTML mess à l'élément d'ID='resultat'
-      document.getElementById('resultat').innerHTML = "mess";
+      document.getElementById('resultat').innerHTML = mess;
   }
 }
 
@@ -60,12 +61,12 @@ function resultat() {
   var message = "Compléter les champs :";
 
   // Vérifier si le prénom a été saisie. Si non (chaine vide), ajouter "\n - Prénom" à message
-  if(f.elements["prenom"].value == "0")  {
+  if(f.elements["prenom"].value == "")  {
     message += "\n- Prénom";
   }
 
   // Vérifier si le nom a été saisie. Si non (chaine vide), ajouter "\n - Nom" à message
-  if(f.elements["nom"].value == "0")  {
+  if(f.elements["nom"].value == "")  {
     message += "\n- Nom";
   }
 
